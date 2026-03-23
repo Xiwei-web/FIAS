@@ -1,9 +1,6 @@
 # FIAS
-FIAS: FEATURE IMBALANCE-AWARE MEDICAL IMAGE SEGMENTATION WITH DYNAMIC FUSION AND MIXING ATTENTION
 
-## 🧠 Overview
-
-This repository provides a PyTorch implementation scaffold for the ISBI paper:
+This repository provides a PyTorch implementation scaffold for the ISBI (Oral) paper:
 
 **FIAS: Feature Imbalance-Aware Medical Image Segmentation with Dynamic Fusion and Mixing Attention**
 
