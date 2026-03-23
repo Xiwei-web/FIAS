@@ -1,0 +1,43 @@
+dataset:
+  name: "Synapse"
+  alias: "Synapse multi-organ"
+  official_task: "Task02_Synapse"
+  modality: "CT"
+  labels:
+    0: "background"
+    1: "spleen"
+    2: "right kidney"
+    3: "left kidney"
+    4: "gallbladder"
+    5: "esophagus"
+    6: "liver"
+    7: "stomach"
+    8: "aorta"
+    9: "inferior vena cava"
+    10: "portal vein and splenic vein"
+    11: "pancreas"
+    12: "right adrenal gland"
+    13: "left adrenal gland"
+  paper_target_organs:
+    - "aorta"
+    - "gallbladder"
+    - "right kidney"
+    - "left kidney"
+    - "liver"
+    - "pancreas"
+    - "spleen"
+    - "stomach"
+  num_classes: 9
+  root_processed: "./data/processed/synapse"
+  split_file: "./data/splits/synapse_test.txt"
+  input_format: "pt_slice"
+
+model:
+  in_channels: 1
+  num_classes: 9
+
+inference:
+  image_size: [256, 256]
+  batch_size: 1
+  save_format: "pt"
+  output_dir: "./outputs/predictions/synapse"

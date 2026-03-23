@@ -1,0 +1,24 @@
+dataset:
+  name: "ACDC"
+  alias: "Automatic Cardiac Diagnosis Challenge"
+  official_task: "Task001_ACDC"
+  modality: "MRI"
+  labels:
+    0: "background"
+    1: "the right ventricular cavity"
+    2: "myocardium"
+    3: "the left ventricular cavity"
+  num_classes: 4
+  root_processed: "./data/processed/acdc"
+  split_file: "./data/splits/acdc_test.txt"
+  input_format: "pt_slice"
+
+model:
+  in_channels: 1
+  num_classes: 4
+
+inference:
+  image_size: [256, 256]
+  batch_size: 1
+  save_format: "pt"
+  output_dir: "./outputs/predictions/acdc"

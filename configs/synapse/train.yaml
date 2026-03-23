@@ -1,0 +1,68 @@
+dataset:
+  name: "Synapse"
+  alias: "Synapse multi-organ"
+  official_task: "Task02_Synapse"
+  modality: "CT"
+  tensor_image_size: "4D"
+  official_num_training_cases: 30
+  official_num_test_cases: 12
+  experiment_protocol:
+    source: "FIAS paper"
+    train_cases: 18
+    test_cases: 12
+    note: "The paper follows the common TransUNet-style Synapse protocol on 2D axial slices."
+  labels:
+    0: "background"
+    1: "spleen"
+    2: "right kidney"
+    3: "left kidney"
+    4: "gallbladder"
+    5: "esophagus"
+    6: "liver"
+    7: "stomach"
+    8: "aorta"
+    9: "inferior vena cava"
+    10: "portal vein and splenic vein"
+    11: "pancreas"
+    12: "right adrenal gland"
+    13: "left adrenal gland"
+  paper_target_organs:
+    - "aorta"
+    - "gallbladder"
+    - "right kidney"
+    - "left kidney"
+    - "liver"
+    - "pancreas"
+    - "spleen"
+    - "stomach"
+  num_classes: 9
+  ignore_official_labels: [5, 9, 10, 12, 13]
+  root_raw: "./3Dsegmentation/data/DATASET_Synapse/unetr_pp_raw/unetr_pp_raw_data/Task02_Synapse"
+  root_processed: "./data/processed/synapse"
+  official_dataset_json: "./3Dsegmentation/data/DATASET_Synapse/unetr_pp_raw/unetr_pp_raw_data/Task02_Synapse/dataset.json"
+  images_train_dir: "./3Dsegmentation/data/DATASET_Synapse/unetr_pp_raw/unetr_pp_raw_data/Task02_Synapse/imagesTr"
+  labels_train_dir: "./3Dsegmentation/data/DATASET_Synapse/unetr_pp_raw/unetr_pp_raw_data/Task02_Synapse/labelsTr"
+  images_test_dir: "./3Dsegmentation/data/DATASET_Synapse/unetr_pp_raw/unetr_pp_raw_data/Task02_Synapse/imagesTs"
+  split_file: "./data/splits/synapse_train.txt"
+  input_format: "pt_slice"
+  preprocessing:
+    slice_axis: "axial"
+    intensity_clip: [-125.0, 275.0]
+    normalize: "zscore"
+    keep_non_empty_labels_only: true
+
+model:
+  in_channels: 1
+  num_classes: 9
+
+train:
+  epochs: 200
+  batch_size: 8
+  image_size: [256, 256]
+
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.0001
+
+loss:
+  gamma: 0.4

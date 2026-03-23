@@ -1,0 +1,31 @@
+dataset:
+  name: "ACDC"
+  alias: "Automatic Cardiac Diagnosis Challenge"
+  official_task: "Task001_ACDC"
+  modality: "MRI"
+  tensor_image_size: "4D"
+  official_num_training_frames: 160
+  official_num_test_frames: 40
+  labels:
+    0: "background"
+    1: "the right ventricular cavity"
+    2: "myocardium"
+    3: "the left ventricular cavity"
+  num_classes: 4
+  root_raw: "./3Dsegmentation/data/DATASET_Acdc/unetr_pp_raw/unetr_pp_raw_data/Task001_ACDC"
+  root_processed: "./data/processed/acdc"
+  official_dataset_json: "./3Dsegmentation/data/DATASET_Acdc/unetr_pp_raw/unetr_pp_raw_data/Task001_ACDC/dataset.json"
+  split_file: "./data/splits/acdc_val.txt"
+  input_format: "pt_slice"
+  preprocessing:
+    slice_axis: "short_axis"
+    normalize: "zscore"
+
+model:
+  in_channels: 1
+  num_classes: 4
+
+evaluation:
+  batch_size: 8
+  metrics: ["dice", "hd95"]
+  report_per_class: true

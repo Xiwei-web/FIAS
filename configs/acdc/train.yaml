@@ -1,0 +1,45 @@
+dataset:
+  name: "ACDC"
+  alias: "Automatic Cardiac Diagnosis Challenge"
+  official_task: "Task001_ACDC"
+  modality: "MRI"
+  tensor_image_size: "4D"
+  official_num_training_frames: 160
+  official_num_test_frames: 40
+  experiment_protocol:
+    source: "FIAS paper"
+    train_cases: 70
+    val_cases: 10
+    test_cases: 20
+    note: "The paper follows the standard TransUNet split on ACDC."
+  labels:
+    0: "background"
+    1: "the right ventricular cavity"
+    2: "myocardium"
+    3: "the left ventricular cavity"
+  num_classes: 4
+  root_raw: "./3Dsegmentation/data/DATASET_Acdc/unetr_pp_raw/unetr_pp_raw_data/Task001_ACDC"
+  root_processed: "./data/processed/acdc"
+  official_dataset_json: "./3Dsegmentation/data/DATASET_Acdc/unetr_pp_raw/unetr_pp_raw_data/Task001_ACDC/dataset.json"
+  split_file: "./data/splits/acdc_train.txt"
+  input_format: "pt_slice"
+  preprocessing:
+    slice_axis: "short_axis"
+    normalize: "zscore"
+    keep_non_empty_labels_only: false
+
+model:
+  in_channels: 1
+  num_classes: 4
+
+train:
+  epochs: 200
+  batch_size: 8
+  image_size: [256, 256]
+
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.0001
+
+loss:
+  gamma: 0.4

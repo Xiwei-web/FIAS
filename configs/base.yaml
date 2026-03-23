@@ -1,0 +1,70 @@
+project:
+  name: "FIAS"
+  task: "2d_medical_image_segmentation"
+  seed: 42
+  output_dir: "./outputs"
+
+runtime:
+  device: "cuda"
+  num_workers: 4
+  pin_memory: true
+  cudnn_benchmark: true
+
+model:
+  name: "FIASModel"
+  in_channels: 1
+  channels: [32, 64, 128, 256]
+  deep_supervision: true
+
+optimizer:
+  name: "AdamW"
+  lr: 0.0001
+  weight_decay: 0.0001
+  betas: [0.9, 0.999]
+
+scheduler:
+  name: "poly"
+  power: 0.9
+  min_lr: 1.0e-6
+
+loss:
+  name: "FeatureMixingSegLoss"
+  gamma: 0.4
+  dice_weight: 0.4
+  ce_weight: 0.6
+
+train:
+  epochs: 200
+  batch_size: 8
+  image_size: [256, 256]
+  shuffle: true
+  drop_last: false
+
+augment:
+  resize: [256, 256]
+  hflip: 0.5
+  vflip: 0.5
+  rotate90: 0.5
+  zoom:
+    enabled: true
+    min_scale: 0.9
+    max_scale: 1.1
+  shift:
+    enabled: true
+    max_ratio: 0.1
+
+evaluation:
+  batch_size: 8
+  metrics: ["dice", "hd95"]
+  save_predictions: false
+
+inference:
+  image_size: [256, 256]
+  batch_size: 1
+  save_format: "pt"
+
+checkpoint:
+  save_last: true
+  save_best: true
+  monitor: "dice"
+  mode: "max"
